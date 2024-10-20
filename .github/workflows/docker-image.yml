@@ -28,9 +28,9 @@ jobs:
 
     # Build the Docker image
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag webdav:$(date +%s)
 
     # Optionally push the image to the container registry
     - name: Push Docker image to registry
-      run: docker push ghcr.io/${{ github.repository }}/my-image-name:$(date +%s)
+      run: docker push ghcr.io/${{ github.repository }}/webdav:$(date +%s)
       if: github.event_name == 'push'
