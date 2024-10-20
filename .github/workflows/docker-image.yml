@@ -26,16 +26,15 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    # Set the image tag as an environment variable
+    # Define the image tag to ensure the correct registry and namespace
     - name: Set image tag
-      id: image_tag
-      run: echo "tag=$(date +%s)" >> $GITHUB_ENV
+      run: echo "IMAGE_TAG=ghcr.io/dockdv/webdav/webdav:$(date +%s)" >> $GITHUB_ENV
 
-    # Build the Docker image with the defined tag
+    # Build the Docker image with the correct tag
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ghcr.io/dockdv/webdav/webdav:${{ env.tag }}
+      run: docker build . --file Dockerfile --tag ${{ env.IMAGE_TAG }}
 
-    # Push the Docker image to the registry
+    # Push the Docker image to the GitHub Container Registry
     - name: Push Docker image to registry
-      run: docker push ghcr.io/dockdv/webdav/webdav:${{ env.tag }}
+      run: docker push ${{ env.IMAGE_TAG }}
       if: github.event_name == 'push'
