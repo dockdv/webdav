@@ -34,5 +34,3 @@ jobs:
     - name: Push Docker image to registry
       run: docker push ghcr.io/${{ github.repository }}:latest
       if: github.event_name == 'push'
-
- 
